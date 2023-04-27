@@ -1,0 +1,401 @@
+*Hjälpkod för att komma igång
+ * Notera att båda klasserna är i samma fil för att det ska underlätta.
+ * Om programmet blir större bör man ha klasserna i separata filer såsom jag går genom i filmen
+ * Då kan det vara läge att ställa in startvärden som jag gjort.
+ * Man kan också skriva ut saker i konsollen i konstruktorn för att se att den "vaknar
+ * Denna kod hjälper mest om du siktar mot betyget E och C
+ * För högre betyg krävs mer självständigt arbete
+ */
+using Microsoft.VisualBasic;
+using System;
+
+
+namespace Bussen
+{
+
+    class Buss
+    {
+
+        public int[] passagerare = new int[25];
+        public int antal_passagerare;// en varibael som kommer hålla koll på mängden passagerare samt styra hur många gånger foor-loopen itererar
+
+
+
+        public void Run()
+        {
+
+            Console.WriteLine("************************************");
+            Console.WriteLine("Välkommen till Bussen");
+            Console.WriteLine("************************************");
+            Thread.Sleep(500);
+
+            // vad som kommer stå i pil menyn
+            string[] menyval = new string[] { "Lägg till passagerare", "skriv ut alla passagerare ", "Räkna ut total ålder ", "Räkna ut medelålder", "Visa den äldsta", "Sök Bland åldrar", "Avsluta programmet" };
+
+            int menuSelected = 0;
+           // Koden går sedan in i en oändlig loop som visar menyn och väntar på användarinmatning
+            while (true)
+            {
+
+                Console.Clear();
+
+                Console.CursorVisible = false;
+
+
+                //koden visar en meny i konsolen och låter användaren välja alternativ med hjälp av piltangenterna.
+                // Det valda alternativet är markerat och motsvarande funktion anropas när användaren trycker på Enter-tangenten.
+                if (menuSelected == 0)
+                {
+                    // \t gör ett Tab hopp framåt alltså flyttar den meningen ett snäpp framåt
+                    Console.WriteLine("\t" + menyval[0] + ("\t\t<---"));
+                    Console.WriteLine(menyval[1]);
+                    Console.WriteLine(menyval[2]);
+                    Console.WriteLine(menyval[3]);
+                    Console.WriteLine(menyval[4]);
+                    Console.WriteLine(menyval[5]);
+                    Console.WriteLine(menyval[6]);
+
+
+
+
+
+                }
+
+                else if (menuSelected == 1)
+                {
+
+                    Console.WriteLine(menyval[0]);
+                    Console.WriteLine("\t" + menyval[1] + ("\t<---"));
+                    Console.WriteLine(menyval[2]);
+                    Console.WriteLine(menyval[3]);
+                    Console.WriteLine(menyval[4]);
+                    Console.WriteLine(menyval[5]);
+                    Console.WriteLine(menyval[6]);
+
+
+
+                }
+
+                else if (menuSelected == 2)
+                {
+
+                    Console.WriteLine(menyval[0]);
+                    Console.WriteLine(menyval[1]);
+                    Console.WriteLine("\t" + menyval[2] + ("\t\t<---"));
+                    Console.WriteLine(menyval[3]);
+                    Console.WriteLine(menyval[4]);
+                    Console.WriteLine(menyval[5]);
+                    Console.WriteLine(menyval[6]);
+
+
+
+                }
+                else if (menuSelected == 3)
+                {
+
+                    Console.WriteLine(menyval[0]);
+                    Console.WriteLine(menyval[1]);
+                    Console.WriteLine(menyval[2]);
+                    Console.WriteLine("\t" + menyval[3] + ("\t\t<---"));
+                    Console.WriteLine(menyval[4]);
+                    Console.WriteLine(menyval[5]);
+                    Console.WriteLine(menyval[6]);
+
+
+
+
+                }
+                else if (menuSelected == 4)
+                {
+
+                    Console.WriteLine(menyval[0]);
+                    Console.WriteLine(menyval[1]);
+                    Console.WriteLine(menyval[2]);
+                    Console.WriteLine(menyval[3]);
+                    Console.WriteLine("\t" + menyval[4] + ("\t\t<---"));
+                    Console.WriteLine(menyval[5]);
+                    Console.WriteLine(menyval[6]);
+
+
+
+
+                }
+                else if (menuSelected == 5)
+                {
+
+                    Console.WriteLine(menyval[0]);
+                    Console.WriteLine(menyval[1]);
+                    Console.WriteLine(menyval[2]);
+                    Console.WriteLine(menyval[3]);
+                    Console.WriteLine(menyval[4]);
+                    Console.WriteLine("\t" + menyval[5] + ("\t\t<---"));
+                    Console.WriteLine(menyval[6]);
+
+                }
+                else if (menuSelected == 6)
+                {
+
+                    Console.WriteLine(menyval[0]);
+                    Console.WriteLine(menyval[1]);
+                    Console.WriteLine(menyval[2]);
+                    Console.WriteLine(menyval[3]);
+                    Console.WriteLine(menyval[4]);
+                    Console.WriteLine(menyval[5]);
+                    Console.WriteLine("\t" + menyval[6] + ("\t\t<---"));
+
+                }
+                var keyPressed = Console.ReadKey();
+
+                if (keyPressed.Key == ConsoleKey.DownArrow && menuSelected != menyval.Length - 1)
+                {
+
+                    menuSelected++;
+
+                }
+
+                else if (keyPressed.Key == ConsoleKey.UpArrow && menuSelected >= 1)
+                {
+
+                    menuSelected--;
+
+                }
+                //Om användaren trycker på Enter-tangenten anger koden en switch-sats som anropar en funktion baserat på det valda alternativet.
+                else if (keyPressed.Key == ConsoleKey.Enter)
+                {
+
+                    switch (menuSelected)
+                    {
+
+                        case 0:
+                            add_passenger();
+                            break;
+
+                        case 1:
+                            print_buss();
+                            break;
+
+                        case 2:
+                            calc_total_age();
+                            break;
+
+                        case 3:
+                            calc_average_age();
+                            break;
+
+                        case 4:
+                            max_age();
+                            break;
+
+                        case 5:
+                            find_age();
+                            break;
+
+                        case 6:
+                            exit();
+                            break;
+
+                            default: 
+                            break; 
+
+                    }
+
+                }
+
+            }
+
+        }
+
+
+        public void add_passenger()
+        {
+            Console.Clear();// kommer vara i varje metod just bara för att göra det snyggare o rensa från allt annat som inte ska vara där 
+            //Koden börjar med att fråga användaren hur många passagerare de vill lägga till.
+            Console.WriteLine("Hur många passagerare vill du lägga till?");
+
+            try //En fel hantering så att programet inte ska krascha ifall användaren skriver något annat än siffor
+            {
+                antal_passagerare = Convert.ToInt32(Console.ReadLine());// en variabel som håller mängden passagerare 
+                //Koden går sedan igenom alla värden i en for-loop, och om den är större än 25 kommer den att be använder skriba in ett lägre nummer
+                for (int i = 0; i < antal_passagerare; i++)
+                {
+                    if (antal_passagerare > 25)
+                    {
+                        Console.WriteLine("det finns bara 25 plaster Försök igen med ett lägre tal");
+                        Console.ReadKey();
+                        break;
+                    }
+                    else// 
+                    {//Om talet är mindre än 25 kommer den att fråga användaren vilken ålder deras passagerare är.
+                     //den lagrar sedan det värdet i en array som kallas passagerare[i].
+                        Console.WriteLine("Vilken ålder har dessa passagerare? ");
+                        int age = Convert.ToInt32(Console.ReadLine());// en variabel som lagrar åldern på alla passagerare
+                       passagerare[i] = age;// skikcar sedan värdet per ålder in i vektorn.
+                    }
+
+                    
+                }
+
+                
+            }
+            catch
+            {
+                Console.WriteLine("För att lägga till en passagerare behöver du skriva in åldern med siffror!");// detta kommer stå om användaren skriver något annat än siffror
+                Console.ReadKey();
+
+            }
+        }
+
+
+        public void print_buss()
+        {///Loopen fortsätter så länge som i är mindre än variabeln antal_passagerare, som representerar antalet passagerare i arrayen.
+            //I varje iteration av loopen skriver koden ut passagerarens ålder
+            for (int i = 0; i < antal_passagerare; i++)
+            {// skriver ut alla passagerare
+                Console.WriteLine(passagerare[i]);
+            }
+            Console.ReadKey();
+           
+        }
+
+        public int calc_total_age()
+        {
+            //deklarerar en heltalsvariabel total_age och initierar den till 0.
+            //Sedan går den in i en for-loop som itererar antal_passagerare ett antal gånger beroende på hur måna passagerare som är valda.
+            //I varje iteration adderar koden passagerarens ålder  index i för passagerare-arrayen till variabeln total_age.
+            Console.Clear();
+            int total_age = 0; 
+            for (int i = 0; i < antal_passagerare; i++)
+                //När slingan är klar visar koden den totala åldern för passagerarna på konsolen med metoden
+                //Console.WriteLine(). Slutligen väntar koden på att användaren trycker på valfri tangent med metoden
+                //Console.ReadKey() väntar på svar frpn användaren
+                total_age += passagerare[i];
+
+                Console.WriteLine("Den totala åldern på Passagerarna är ");
+                Console.Write(total_age + "År  <--- ");
+                Console.ReadKey ();
+
+           //returnerar total_age-värdet.
+            return total_age;
+        
+            
+            
+            
+        }
+
+
+
+        public void calc_average_age()
+        {
+            //Deklarerar en heltalsvariabel average_age och initierar den till 0. Koden går sedan in i
+            //en for-loop som itererar genom varje passagerare i passagerare-arrayen. I varje iteration av loopen lägger
+            //koden till passagerarens ålder till variabeln medelålder.
+            Console.Clear();
+            int avrage_age = 0;
+            for (int i = 0; i <antal_passagerare; i++)
+                //Efter loopen beräknar koden medelåldern för passagerarna genom att dividera
+                //variablen average_age med variabeln antal_passagerare,
+                //som representerar det totala antalet passagerare.
+                //Resultatet lagras i ett dubbelt variabelt medelvärde1.
+
+                avrage_age += passagerare[i];
+            double avrage = Convert.ToDouble(avrage_age);
+            double avrage1 = avrage / antal_passagerare;
+            //Slutligen visar koden passagerarnas totala ålder och medelåldern på konsolen med metoderna
+            //Console.WriteLine() och Console.Write(). Metoden Console.ReadKey() används för att vänta
+            //på att användaren trycker på en tangent innan han stänger konsolfönstret.
+            Console.WriteLine("D" +
+                "en totala åldern på Passagerarna är ");
+                    Console.Write(avrage1+ "År  <--- ");
+                    Console.ReadKey();
+                
+
+            
+
+
+
+
+
+
+        }
+
+        public void max_age()
+        {
+            Console.Clear();
+            //Koden deklarerar en heltalsvariabel maxAge och initierar den till 0. Den går sedan genom en
+            //array av passagerare och hittar den maximala åldern.
+            //Slutligen skriver den ut den maximala åldern
+            int maxAge = 0;
+            for (int i = 0; i < antal_passagerare; i++)
+
+                if (passagerare[i] > maxAge)
+                {
+                    maxAge = passagerare[i];
+
+                }
+
+            Console.WriteLine("Den äldsta på bussen är " + maxAge + " år");
+            Console.ReadKey();
+
+
+        }
+            
+
+           
+
+
+
+
+        
+
+
+        public void find_age()
+        {// ber användaren att ange en lägsta och högsta ålder med metoderna 
+         //De angivna värdena lagras i låg_ålder- respektive hög_ålder-variablerna,
+         //med int.Parse-metoden för att konvertera inmatningssträngen till ett heltal.
+            Console.Clear();
+            Console.WriteLine("Ange den lägsta åldern du vill söka med");
+            int låg_ålder = int.Parse(Console.ReadLine());
+            Console.WriteLine("Ange den högsta åldern du vill söka med");
+            int hög_ålder = int.Parse(Console.ReadLine());
+            Console.WriteLine("Passagerare mellan " +"Ålder " + låg_ålder + " och " +" ålder " + hög_ålder + " är ålder : ");
+            //Koden använder sedan en for-loop för att iterera genom en rad passagerar åldrar, 
+            for (int i = 0;i < passagerare.Length;i++)
+            {// kontrollerar om åldern är högre än minimiåldern och lägre än maxåldern.
+             //Om åldern är inom intervallet matar koden ut åldern och indexet för passageraren i arrayen mellan åldrarna som valts
+                if (passagerare[i] > låg_ålder && passagerare[i] < hög_ålder)
+                {
+                    Console.WriteLine("Ålder " + passagerare[i] + " plats" + i + "<--");
+                }
+                
+            }
+            Console.ReadKey();
+
+
+        } 
+
+
+
+
+
+        public void exit()
+                {
+                    Environment.Exit(0);
+
+                }
+
+    }
+
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+
+            var minbuss = new Buss();
+
+            minbuss.Run();
+
+            Console.Write("Tryck på en tangent för att fortsätta . . . ");
+            Console.ReadKey(true);
+        }
+    }
+}
